@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import Map1 from './YaMap';
+import { YaMap } from './containers/YaMap';
+import { Points } from './containers/Points';
 import './App.css';
 
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Map1 />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <Points />
+                <YaMap />
+            </div>
+        );
+    }
 }
 
 export default App;
