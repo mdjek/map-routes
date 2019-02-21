@@ -1,9 +1,11 @@
 import Marker from './Marker';
 import Line from './Line';
-import Container from '../containers/Points/container';
+import YaMap from './YaMap';
+import Points from './Points';
 
 export {
     Marker,
     Line,
-    Container,
+    YaMap,
+    Points,
 }

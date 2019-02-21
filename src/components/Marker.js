@@ -26,22 +26,10 @@ class Marker extends Component {
         handleChangeCoords(index, coords);
     };
 
-    // handleClick = (e) => {
-    //     const { index, properties: { properties: { balloonContent } } } = this.props;
-    //     // const coords = e.get('target').geometry.getCoordinates();
-    //     //
-    //     // handleGetInfo(index, coords, 'latlong');
-    //     // const { index } = this.props;
-    //
-    //
-    //     console.log(this.props);
-    // };
-
     render() {
         return (
             <Fragment>
                 <Placemark
-                    // onClick={this.handleClick}
                     onDragStart={this.handleDragStart}
                     onDragEnd={this.handleDragEnd}
                     options={{

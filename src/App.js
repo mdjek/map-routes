@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { YaMap } from './containers/YaMap';
-import { Points } from './containers/Points';
+import { RouteMap } from './containers/RouteMap';
+import { Points } from './components';
 import './App.css';
 
 
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <Points />
-                <YaMap />
+            <div className="container">
+                <div className="wrapper">
+                    <RouteMap />
+                </div>
             </div>
         );
     }

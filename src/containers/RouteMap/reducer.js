@@ -23,7 +23,7 @@ const initialState = {
     ],
 };
 
-const YaMapReducer = (state = { ...initialState }, action) => {
+const RouteMapReducer = (state = { ...initialState }, action) => {
     switch (action.type) {
         case actionTypes.SET_MARKER_INFO: {
             const placemarks = [ ...state.placemarks ];
@@ -51,4 +51,4 @@ const YaMapReducer = (state = { ...initialState }, action) => {
     }
 };
 
-export default YaMapReducer;
+export default RouteMapReducer;

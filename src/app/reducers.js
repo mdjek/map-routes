@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
-import { YaMapReducer } from '../containers/YaMap';
-import { PointsReducer } from '../containers/Points';
+import { RouteMapReducer } from '../containers/RouteMap';
 
 const AppReducers = () => (
     combineReducers({
-        YaMapReducer,
+        RouteMapReducer,
     })
 );
 
