@@ -7,21 +7,27 @@ import * as actions from './actions';
 
 class RouteMap extends Component {
     changeCoords = (index, coords) => {
-        const { actions: { setCoordsLocation, setInfoLocation } }= this.props;
+        const { actions: { changeCoords, getAddressLocation } }= this.props;
 
-        setCoordsLocation(index, coords);
-        setInfoLocation(index, coords, 'latlong');
+        changeCoords(index, coords);
+        getAddressLocation(index, coords, 'latlong');
     };
 
     render() {
         const {
             placemarks,
+            actions: {
+                addMarker,
+            },
         } = this.props;
 
         return (
             <Fragment>
                 <div className="points">
-                    <Points />
+                    <Points
+                        placemarks={placemarks}
+                        addMarker={addMarker}
+                    />
                 </div>
                 <div className="ya-map-container">
                     <YaMap
@@ -37,8 +43,9 @@ class RouteMap extends Component {
 RouteMap.propTypes = {
     placemarks: PropTypes.array,
     actions: PropTypes.shape({
-        setCoordsLocation: PropTypes.func,
-        setInfoLocation: PropTypes.func,
+        changeCoords: PropTypes.func,
+        getAddressLocation: PropTypes.func,
+        getInfoLocation: PropTypes.func,
     }),
 };
 

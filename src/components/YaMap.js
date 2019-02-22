@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { YMaps, Map } from 'react-yandex-maps';
 import { Marker, Line } from '.';
 
-const initialMapState = { center: [55.76, 37.64], zoom: 7, controls: [] };
+const initialMapState = { center: [54.314, 48.403], zoom: 7, controls: [] };
 
 const YaMap = props => {
     const {
