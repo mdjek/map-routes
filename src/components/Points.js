@@ -103,9 +103,7 @@ class Points extends Component {
                                 <span
                                     className="point-item__delete"
                                     onClick={() => removeMarker(item.id)}
-                                >
-                                    [х]
-                                </span>
+                                />
                             </div>
                         )}
                         onUpdate={this.handleUpdate}

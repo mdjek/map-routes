@@ -52,11 +52,15 @@ button {
 
 .point-item__delete {
     display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
     margin-left: 10px;
     position: relative;
     z-index: 5;
     cursor: pointer;
-    color: #000;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAABpklEQVR4nO3dUW6DMBQAwVD13oaTpzcIH5bl0J05gEHJ6kl2QDle/9wY471y/eu6jpXrr/az+wbYSwBxAogTQJwA4gQQJ4C4R+9hX6/7ff7qffru688yAeIEECeAOAHECSBOAHECiFu+R139e3zd7DmDCRAngDgBxAkgTgBxAogTQNzv7AJ3+/zzPGcvwWdTzyOYAHECiBNAnADiBBAngDgBxE2fA9xxDvDdTIA4AcQJIE4AcQKIE0CcAOK2vxfgnOCzu8/HewFMEUCcAOIEECeAOAHECSBu+fMAs+72wbPnCE9ff5YJECeAOAHECSBOAHECiBNAnADiBBAngDgBxAkgTgBxAogTQJwA4gQQJ4A4AcQJIE4AcQKIE0CcAOIEECeAOAHECSBOAHECiBNAnADiBBAngDgBxAkgTgBxAogTQJwA4gQQJ4A4AcQJIE4AcQKIE0CcAOIEECeAOAHECSBOAHECiBNA3OP/N7C+/iwTIE4AcQKIE0CcAOIEECeAuGP3DYwx3rvv4Ztd17X0OzIB4gQQJ4A4AcQJIE4AcQIAAAAAiPgDON8xc2tJgEkAAAAASUVORK5CYII=') 50% 50% no-repeat;
+    background-size: 100%;
 }
 
 
