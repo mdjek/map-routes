@@ -3,29 +3,28 @@ import PropTypes from 'prop-types';
 import { YMaps, Map } from 'react-yandex-maps';
 import { Marker, Line } from '.';
 
-const initialMapState = { center: [54.314, 48.403], zoom: 7, controls: [] };
-
 const YaMap = props => {
     const {
+        mapState,
         placemarks,
         handleChangeCoords,
     } = props;
 
     return (
         <YMaps>
-            <Map state={initialMapState} width="500px" height="500px">
+            <Map state={mapState} width="500px" height="500px">
                 {placemarks.map((placemarkParams, i) => (
-                    <Fragment key={`placemarkFragment${i}`}>
+                    <Fragment key={`placemarkFragment${placemarkParams.id}`}>
                         <Marker
-                            key={`m${i}`}
                             index={i}
+                            key={placemarkParams.id}
                             handleChangeCoords={handleChangeCoords}
                             {...placemarkParams}
                         />
                         { i !== placemarks.length-1
                         && (
                             <Line
-                                key={`l${i}`}
+                                key={`l${placemarkParams.id}`}
                                 coordinates={[placemarkParams.geometry.coordinates, placemarks[i+=1].geometry.coordinates]}
                             />
                         )
@@ -38,6 +37,7 @@ const YaMap = props => {
 };
 
 YaMap.propTypes = {
+    mapState: PropTypes.shape(),
     placemarks: PropTypes.array,
     handleChangeCoords: PropTypes.func,
 };

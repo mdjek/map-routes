@@ -25,10 +25,36 @@ export const changeCoords = (index, coords) => dispatch => (
         type: actionTypes.SET_MARKER_COORDS,
         data: {
             index,
-            coords
+            coords,
         },
     })
 );
+
+export const changeMapCenter = (coords) => dispatch => (
+    dispatch({
+        type: actionTypes.CHANGE_MAP_CENTER,
+        data: coords,
+    })
+);
+
+export const shapeMarker = (coords, address) => (dispatch) => {
+    const id = Date.now();
+
+    const newPlacemark = {
+        id,
+        geometry: {
+            coordinates: coords,
+        },
+        properties: {
+            balloonContent: address,
+        },
+    };
+
+    dispatch({
+        type: actionTypes.ADD_MARKER,
+        data: newPlacemark,
+    })
+};
 
 export const getInfoLocation = (data) => dispatch => (
     geocodeRequest(data)
@@ -51,15 +77,11 @@ export const getInfoLocation = (data) => dispatch => (
                     .GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
 
                 if (responseDataCoords !== '') {
-                    const coords = responseDataCoords.split(' ');
+                    const coords = responseDataCoords.split(' ').reverse();
+                    const formattedCoords = coords.map(item => +item);
 
-                    dispatch({
-                        type: actionTypes.ADD_MARKER,
-                        data: {
-                            coords,
-                            address: responseDataAddress,
-                        }
-                    })
+                    dispatch(shapeMarker(formattedCoords, responseDataAddress));
+                    dispatch(changeMapCenter(formattedCoords));
                 }
             }
         })
@@ -92,14 +114,20 @@ export const addMarker = (data) => (dispatch) => {
     dispatch(getInfoLocation(data));
 };
 
-export const removeMarker = (index) => (dispatch, getState) => {
+export const removeMarker = (id) => (dispatch, getState) => {
     const { RouteMapReducer: { placemarks } } = getState();
 
-    console.log(placemarks);
+    const newList = [];
 
-    // dispatch({
-    //     type: actionTypes.REMOVE_MARKER,
-    //     data: index,
-    // })
+    placemarks.forEach(item => {
+        if (item.id !== id) {
+            newList.push(item);
+        }
+    });
+
+    dispatch({
+        type: actionTypes.REMOVE_MARKER,
+        data: newList,
+    })
 };
 

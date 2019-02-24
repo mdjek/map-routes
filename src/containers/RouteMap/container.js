@@ -6,18 +6,21 @@ import { Points, YaMap } from '../../components';
 import * as actions from './actions';
 
 class RouteMap extends Component {
-    changeCoords = (index, coords) => {
+    changeCoords = (id, coords) => {
         const { actions: { changeCoords, getAddressLocation } }= this.props;
 
-        changeCoords(index, coords);
-        getAddressLocation(index, coords, 'latlong');
+        changeCoords(id, coords);
+        getAddressLocation(id, coords, 'latlong');
     };
 
     render() {
         const {
+            mapState,
             placemarks,
             actions: {
                 addMarker,
+                removeMarker,
+                changeOrder,
             },
         } = this.props;
 
@@ -27,10 +30,13 @@ class RouteMap extends Component {
                     <Points
                         placemarks={placemarks}
                         addMarker={addMarker}
+                        removeMarker={removeMarker}
+                        changeOrder={changeOrder}
                     />
                 </div>
                 <div className="ya-map-container">
                     <YaMap
+                        mapState={mapState}
                         placemarks={placemarks}
                         handleChangeCoords={this.changeCoords}
                     />
@@ -41,15 +47,19 @@ class RouteMap extends Component {
 }
 
 RouteMap.propTypes = {
+    mapState: PropTypes.shape(),
     placemarks: PropTypes.array,
     actions: PropTypes.shape({
         changeCoords: PropTypes.func,
         getAddressLocation: PropTypes.func,
         getInfoLocation: PropTypes.func,
+        addMarker: PropTypes.func,
+        removeMarker: PropTypes.func,
     }),
 };
 
 const mapStateToProps = state => ({
+    mapState: state.RouteMapReducer.mapState,
     placemarks: state.RouteMapReducer.placemarks,
 });
 

@@ -27,21 +27,25 @@ class Marker extends Component {
     };
 
     render() {
+        const { index } = this.props;
+        const { startDragCoords } = this.state;
+
         return (
             <Fragment>
                 <Placemark
                     onDragStart={this.handleDragStart}
                     onDragEnd={this.handleDragEnd}
                     options={{
-                        preset: 'islands#darkBlueStretchyIcon',
+                        // preset: 'islands#darkBlueStretchyIcon',
+                        preset: index === 0 ? 'islands#redDotIcon' : 'islands#darkBlueDotIcon',
                         draggable: true,
                     }}
                     {...this.props}
                 />
-                {this.state.startDragCoords
+                {startDragCoords
                     && (<Placemark
                             geometry={{
-                                coordinates: this.state.startDragCoords,
+                                coordinates: startDragCoords,
                             }}
                             options={{
                                 preset: 'islands#lightBlueDotIcon',

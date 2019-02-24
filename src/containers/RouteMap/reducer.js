@@ -1,32 +1,23 @@
 import * as actionTypes from './types';
 
-const placemark = {
-    geometry: {
-        coordinates: null,
-    },
-    properties: {
-        iconContent: null,
-        balloonContent: '',
-    },
-};
-
 const initialState = {
+    mapState: { center: [54.314, 48.403], zoom: 7, controls: ['zoomControl'] },
     placemarks: [
         {
+            id: 123123123123,
             geometry: {
                 coordinates: [54.314, 48.403],
             },
             properties: {
-                iconContent: 1,
                 balloonContent: 'Точка маршрута 1',
             },
         },
         {
+            id: 5345345345,
             geometry: {
                 coordinates: [55.314, 49.403],
             },
             properties: {
-                iconContent: 2,
                 balloonContent: 'Точка маршрута 2',
             },
         }
@@ -35,6 +26,13 @@ const initialState = {
 
 const RouteMapReducer = (state = { ...initialState }, action) => {
     switch (action.type) {
+        case actionTypes.CHANGE_MAP_CENTER: {
+            return {
+                ...state,
+                mapState: { ...state.mapState, center: action.data, },
+            };
+        }
+
         case actionTypes.SET_MARKER_ADDRESS: {
             const placemarks = [ ...state.placemarks ];
             placemarks[action.data.index].properties.balloonContent = action.data.address;
@@ -58,31 +56,22 @@ const RouteMapReducer = (state = { ...initialState }, action) => {
         case actionTypes.CHANGE_MARKER_ORDER: {
             return {
                 ...state,
-                placemarks: action.data,
+                placemarks: [ ...action.data ],
             };
         }
 
         case actionTypes.ADD_MARKER: {
-            const placemarks = [ ...state.placemarks ];
-
-            const newPlacemark = {
-                geometry: {
-                    coordinates: action.data.coords,
-                },
-                properties: {
-                    iconContent: placemarks.length + 1,
-                    balloonContent: action.data.address,
-                },
-            };
-
             return {
                 ...state,
-                placemarks: [ ...placemarks, newPlacemark]
+                placemarks: [ ...state.placemarks, action.data],
             };
         }
 
         case actionTypes.REMOVE_MARKER: {
-            return state;
+            return {
+                ...state,
+                placemarks: [ ...action.data ],
+            };
         }
 
         default: {

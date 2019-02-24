@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { RouteMap } from './containers/RouteMap';
-import { Points } from './components';
 import './App.css';
 
 

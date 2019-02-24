@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDragList from 'react-drag-list';
+import 'react-drag-list/assets/index.css';
 
 class Points extends Component {
     state = {
         inputText: '',
+        errorText: null,
     };
 
     changeInput = (event) => {
         this.setState({
             inputText: event.target.value.trim(),
         });
+
+        if (this.state.errorText) {
+            this.setState({
+                errorText: null,
+            });
+        }
+    };
+
+    handleUpdate = (e, updatedList) => {
+        const { changeOrder } = this.props;
+
+        changeOrder(updatedList);
     };
 
     addMarker = (event) => {
@@ -20,18 +35,27 @@ class Points extends Component {
 
         if (inputText) {
             addMarker(inputText);
-            // getInfoLocation(inputText);
+
+            this.setState({
+                inputText: '',
+            });
         }
-
-        this.setState({
-            inputText: '',
-        });
+        else {
+            this.setState({
+                errorText: 'Укажите адрес',
+            });
+        }
     };
-
 
     render() {
         const {
+            inputText,
+            errorText,
+        } = this.state;
+
+        const {
             placemarks,
+            removeMarker,
         } = this.props;
 
         return (
@@ -43,32 +67,49 @@ class Points extends Component {
                         onSubmit={this.addMarker}
                     >
                         <div className="form-group row">
-                            <div className="col-xs-9">
-                                <input
-                                    type="text"
-                                    name="placemark-name"
-                                    className="form-control"
-                                    placeholder="Введите адрес"
-                                    onChange={this.changeInput}
-                                />
-                            </div>
-
-                            <div className="col-xs-3">
-                                <button
-                                    className="btn btn-primary form-control"
-                                >
-                                    {'Добавить'}
-                                </button>
-                            </div>
+                            <input
+                                type="text"
+                                name="placemark-name"
+                                className="form-control"
+                                placeholder="Введите адрес"
+                                onChange={this.changeInput}
+                                value={inputText}
+                            />
+                            <button
+                                className="btn btn-primary form-control"
+                            >
+                                {'Добавить'}
+                            </button>
                         </div>
                     </form>
+                    {errorText && (
+                        <div className="error-text">
+                            {errorText}
+                        </div>
+                    )}
                 </div>
                 <div>
-                    {placemarks.map((item, i) => (
-                        <div key={i}>
-                            {item.properties.balloonContent}
-                        </div>
-                    ))}
+                    <ReactDragList
+                        dataSource={placemarks}
+                        handles={false}
+                        rowKey="id"
+                        row={(item, index) => (
+                            <div key={item.id} className="point-item">
+                                <span className="point-item__info">
+                                    <strong>{`${index += 1}.`}</strong>
+                                    {' '}
+                                    {`${item.properties.balloonContent}`}
+                                </span>
+                                <span
+                                    className="point-item__delete"
+                                    onClick={() => removeMarker(item.id)}
+                                >
+                                    [х]
+                                </span>
+                            </div>
+                        )}
+                        onUpdate={this.handleUpdate}
+                    />
                 </div>
             </div>
         );
@@ -77,6 +118,7 @@ class Points extends Component {
 
 Points.propTypes = {
     placemarks: PropTypes.array,
+    removeMarker: PropTypes.func,
 };
 
 export default Points;

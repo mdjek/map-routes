@@ -3,16 +3,83 @@
     margin: 0 auto;
     display: flex;
     flex: 0 1 auto;
+    padding: 15px;
+}
+
+.marker-form {
+    margin: 0 0 15px;
+}
+
+input {
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 5px 5px 0 0;
+    font-size: 14px;
+    width: 100%;
+    max-width: 50%;
+}
+
+button {
+    box-sizing: border-box;
+    margin: 5px 5px 0 0;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.error-text {
+    margin: 5px 0;
+    color: #cf0202;
 }
 
 /*points*/
 .points {
     flex: 50%;
     max-width: 50%;
+    padding: 0 50px 0 0;
 }
+
+.point-item {
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.point-item__delete {
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+    color: #000;
+}
+
 
 /*route-map*/
 .ya-map-container {
     flex: 50%;
     max-width: 50%;
+}
+
+.ya-map-container > div {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+
+@media(max-width: 600px) {
+    input, button {
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    .points {
+        padding: 0 20px 0 0;
+    }
 }
