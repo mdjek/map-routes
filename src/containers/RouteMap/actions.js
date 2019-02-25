@@ -2,6 +2,19 @@ import axios from 'axios';
 import apiUrl from '../../api';
 import * as actionTypes from './types';
 
+export const requestRejected = () => dispatch => (
+    dispatch({
+        type: actionTypes.REQUEST_REJECTED,
+    })
+);
+
+export const resetRequestStatus = (data = 0) => dispatch => (
+    dispatch({
+        type: actionTypes.REQUEST_RESET_STATUS,
+        data,
+    })
+);
+
 export const geocodeRequest = (data, scoParam) => (
     axios({
         method: 'get',
@@ -80,11 +93,15 @@ export const getInfoLocation = (data) => dispatch => (
                     const coords = responseDataCoords.split(' ').reverse();
                     const formattedCoords = coords.map(item => +item);
 
+                    dispatch(resetRequestStatus());
                     dispatch(shapeMarker(formattedCoords, responseDataAddress));
                     dispatch(changeMapCenter(formattedCoords));
                 }
             }
         })
+        .catch(() => (
+            dispatch(requestRejected(0))
+        ))
 );
 
 export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
@@ -108,6 +125,9 @@ export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
                 })
             }
         })
+        .catch(() => (
+            dispatch(requestRejected(0))
+        ))
 );
 
 export const addMarker = (data) => (dispatch) => {
@@ -130,4 +150,3 @@ export const removeMarker = (id) => (dispatch, getState) => {
         data: newList,
     })
 };
-

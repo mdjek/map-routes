@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDragList from 'react-drag-list';
-import 'react-drag-list/assets/index.css';
 
 class Points extends Component {
     state = {
@@ -13,12 +12,6 @@ class Points extends Component {
         this.setState({
             inputText: event.target.value.trim(),
         });
-
-        if (this.state.errorText) {
-            this.setState({
-                errorText: null,
-            });
-        }
     };
 
     handleUpdate = (e, updatedList) => {
@@ -38,6 +31,7 @@ class Points extends Component {
 
             this.setState({
                 inputText: '',
+                errorText: null,
             });
         }
         else {
@@ -56,6 +50,7 @@ class Points extends Component {
         const {
             placemarks,
             removeMarker,
+            requestErrorCode,
         } = this.props;
 
         return (
@@ -75,16 +70,24 @@ class Points extends Component {
                                 onChange={this.changeInput}
                                 value={inputText}
                             />
-                            <button
-                                className="btn btn-primary form-control"
-                            >
-                                {'Добавить'}
-                            </button>
+                            {/*<button*/}
+                                {/*className="btn btn-primary form-control"*/}
+                            {/*>*/}
+                                {/*{'Добавить'}*/}
+                            {/*</button>*/}
                         </div>
                     </form>
                     {errorText && (
                         <div className="error-text">
                             {errorText}
+                        </div>
+                    )}
+                    {requestErrorCode && (
+                        <div className="error-text">
+                            {requestErrorCode === 0
+                                ? 'Возникла ошибка. Попробуйте позже.'
+                                : 'Адрес не найден. Измените запрос.'
+                            }
                         </div>
                     )}
                 </div>

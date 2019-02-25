@@ -22,6 +22,7 @@ const initialState = {
             },
         }
     ],
+    requestErrorCode: null,
 };
 
 const RouteMapReducer = (state = { ...initialState }, action) => {
@@ -72,6 +73,20 @@ const RouteMapReducer = (state = { ...initialState }, action) => {
                 ...state,
                 placemarks: [ ...action.data ],
             };
+        }
+
+        case actionTypes.REQUEST_REJECTED: {
+            return {
+                ...state,
+                requestErrorCode: action.data,
+            }
+        }
+
+        case actionTypes.REQUEST_RESET_STATUS: {
+            return {
+                ...state,
+                requestErrorCode: null,
+            }
         }
 
         default: {

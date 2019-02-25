@@ -17,6 +17,7 @@ class RouteMap extends Component {
         const {
             mapState,
             placemarks,
+            requestErrorCode,
             actions: {
                 addMarker,
                 removeMarker,
@@ -32,6 +33,7 @@ class RouteMap extends Component {
                         addMarker={addMarker}
                         removeMarker={removeMarker}
                         changeOrder={changeOrder}
+                        requestErrorCode={requestErrorCode}
                     />
                 </div>
                 <div className="ya-map-container">
@@ -49,6 +51,7 @@ class RouteMap extends Component {
 RouteMap.propTypes = {
     mapState: PropTypes.shape(),
     placemarks: PropTypes.array,
+    requestErrorCode: PropTypes.bool,
     actions: PropTypes.shape({
         changeCoords: PropTypes.func,
         getAddressLocation: PropTypes.func,
@@ -61,6 +64,7 @@ RouteMap.propTypes = {
 const mapStateToProps = state => ({
     mapState: state.RouteMapReducer.mapState,
     placemarks: state.RouteMapReducer.placemarks,
+    requestErrorCode: state.RouteMapReducer.requestErrorCode,
 });
 
 const mapDispatchToProps = dispatch => ({

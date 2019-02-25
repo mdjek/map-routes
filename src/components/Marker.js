@@ -36,7 +36,6 @@ class Marker extends Component {
                     onDragStart={this.handleDragStart}
                     onDragEnd={this.handleDragEnd}
                     options={{
-                        // preset: 'islands#darkBlueStretchyIcon',
                         preset: index === 0 ? 'islands#redDotIcon' : 'islands#darkBlueDotIcon',
                         draggable: true,
                     }}
