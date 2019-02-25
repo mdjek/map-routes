@@ -51,7 +51,7 @@ class RouteMap extends Component {
 RouteMap.propTypes = {
     mapState: PropTypes.shape(),
     placemarks: PropTypes.array,
-    requestErrorCode: PropTypes.bool,
+    requestErrorCode: PropTypes.number,
     actions: PropTypes.shape({
         changeCoords: PropTypes.func,
         getAddressLocation: PropTypes.func,

@@ -2,16 +2,16 @@ import axios from 'axios';
 import apiUrl from '../../api';
 import * as actionTypes from './types';
 
-export const requestRejected = () => dispatch => (
+export const requestRejected = (data = 1) => dispatch => (
     dispatch({
         type: actionTypes.REQUEST_REJECTED,
+        data,
     })
 );
 
-export const resetRequestStatus = (data = 0) => dispatch => (
+export const resetRequestStatus = () => dispatch => (
     dispatch({
         type: actionTypes.REQUEST_RESET_STATUS,
-        data,
     })
 );
 
@@ -97,10 +97,12 @@ export const getInfoLocation = (data) => dispatch => (
                     dispatch(shapeMarker(formattedCoords, responseDataAddress));
                     dispatch(changeMapCenter(formattedCoords));
                 }
+            } else {
+                dispatch(requestRejected(2))
             }
         })
         .catch(() => (
-            dispatch(requestRejected(0))
+            dispatch(requestRejected(1))
         ))
 );
 
@@ -115,6 +117,7 @@ export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
 
             if (data.response.GeoObjectCollection.featureMember
                 && data.response.GeoObjectCollection.featureMember.length > 0) {
+                dispatch(resetRequestStatus());
                 dispatch({
                     type: actionTypes.SET_MARKER_ADDRESS,
                     data: {
@@ -123,10 +126,12 @@ export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
                             .GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted,
                     }
                 })
+            } else {
+                dispatch(requestRejected(2))
             }
         })
         .catch(() => (
-            dispatch(requestRejected(0))
+            dispatch(requestRejected(1))
         ))
 );
 
@@ -137,13 +142,7 @@ export const addMarker = (data) => (dispatch) => {
 export const removeMarker = (id) => (dispatch, getState) => {
     const { RouteMapReducer: { placemarks } } = getState();
 
-    const newList = [];
-
-    placemarks.forEach(item => {
-        if (item.id !== id) {
-            newList.push(item);
-        }
-    });
+    const newList = placemarks.filter(item => item.id !== id);
 
     dispatch({
         type: actionTypes.REMOVE_MARKER,

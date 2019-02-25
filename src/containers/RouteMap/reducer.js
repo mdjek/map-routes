@@ -1,27 +1,12 @@
 import * as actionTypes from './types';
 
 const initialState = {
-    mapState: { center: [54.314, 48.403], zoom: 7, controls: ['zoomControl'] },
-    placemarks: [
-        {
-            id: 123123123123,
-            geometry: {
-                coordinates: [54.314, 48.403],
-            },
-            properties: {
-                balloonContent: 'Точка маршрута 1',
-            },
-        },
-        {
-            id: 5345345345,
-            geometry: {
-                coordinates: [55.314, 49.403],
-            },
-            properties: {
-                balloonContent: 'Точка маршрута 2',
-            },
-        }
-    ],
+    mapState: {
+        center: [54.314, 48.403],
+        zoom: 7,
+        controls: ['zoomControl'],
+    },
+    placemarks: [],
     requestErrorCode: null,
 };
 
