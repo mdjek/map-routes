@@ -27,22 +27,18 @@ class RouteMap extends Component {
 
         return (
             <Fragment>
-                <div className="points">
-                    <Points
-                        placemarks={placemarks}
-                        addMarker={addMarker}
-                        removeMarker={removeMarker}
-                        changeOrder={changeOrder}
-                        requestErrorCode={requestErrorCode}
-                    />
-                </div>
-                <div className="ya-map-container">
-                    <YaMap
-                        mapState={mapState}
-                        placemarks={placemarks}
-                        handleChangeCoords={this.changeCoords}
-                    />
-                </div>
+                <Points
+                    placemarks={placemarks}
+                    addMarker={addMarker}
+                    removeMarker={removeMarker}
+                    changeOrder={changeOrder}
+                    requestErrorCode={requestErrorCode}
+                />
+                <YaMap
+                    mapState={mapState}
+                    placemarks={placemarks}
+                    handleChangeCoords={this.changeCoords}
+                />
             </Fragment>
         );
     }

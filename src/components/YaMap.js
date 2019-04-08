@@ -11,28 +11,36 @@ const YaMap = props => {
     } = props;
 
     return (
-        <YMaps>
-            <Map state={mapState} width="500px" height="500px">
-                {placemarks.map((placemarkParams, i) => (
-                    <Fragment key={`placemarkFragment${placemarkParams.id}`}>
-                        <Marker
-                            index={i}
-                            key={placemarkParams.id}
-                            handleChangeCoords={handleChangeCoords}
-                            {...placemarkParams}
-                        />
-                        { i !== placemarks.length-1
-                        && (
-                            <Line
-                                key={`l${placemarkParams.id}`}
-                                coordinates={[placemarkParams.geometry.coordinates, placemarks[i+=1].geometry.coordinates]}
-                            />
-                        )
-                        }
-                    </Fragment>
-                ))}
-            </Map>
-        </YMaps>
+        <div className="ya-route">
+            <div className="ya-route__map">
+                <YMaps>
+                    <Map
+                        state={mapState}
+                        width="100%"
+                        height="500px"
+                    >
+                        {placemarks.map((placemarkParams, i) => (
+                            <Fragment key={`placemarkFragment${placemarkParams.id}`}>
+                                <Marker
+                                    index={i}
+                                    key={placemarkParams.id}
+                                    handleChangeCoords={handleChangeCoords}
+                                    {...placemarkParams}
+                                />
+                                { i !== placemarks.length-1
+                                && (
+                                    <Line
+                                        key={`l${placemarkParams.id}`}
+                                        coordinates={[placemarkParams.geometry.coordinates, placemarks[i+=1].geometry.coordinates]}
+                                    />
+                                )
+                                }
+                            </Fragment>
+                        ))}
+                    </Map>
+                </YMaps>
+            </div>
+        </div>
     );
 };
 

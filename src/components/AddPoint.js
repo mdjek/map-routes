@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 class AddPoint extends Component {
@@ -43,7 +43,7 @@ class AddPoint extends Component {
         const { requestErrorCode } = this.props;
 
         return (
-            <div className="marker-form">
+            <Fragment>
                 <form
                     action="#"
                     method="get"
@@ -73,7 +73,7 @@ class AddPoint extends Component {
                     }
                 </div>)
                 }
-            </div>
+            </Fragment>
         );
     }
 }
