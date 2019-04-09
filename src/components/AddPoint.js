@@ -66,12 +66,12 @@ class AddPoint extends Component {
                     </div>
                 )}
                 {!!requestErrorCode &&
-                (<div className="error-text">
-                    {requestErrorCode === 2
-                        ? 'Адрес не найден. Измените запрос.'
-                        : 'Возникла ошибка. Попробуйте позже.'
-                    }
-                </div>)
+                    (<div className="error-text">
+                        {requestErrorCode === 2
+                            ? 'Адрес не найден. Измените запрос.'
+                            : 'Возникла ошибка. Попробуйте позже.'
+                        }
+                    </div>)
                 }
             </Fragment>
         );

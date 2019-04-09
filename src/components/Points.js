@@ -1,55 +1,52 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDragList from 'react-drag-list';
 import { AddPoint } from '.';
 
-class Points extends Component {
-    handleUpdate = (e, updatedList) => {
-        const { changeOrder } = this.props;
+const Points = (props) => {
+    const handleUpdate = (e, updatedList) => {
+        const {changeOrder} = props;
 
         changeOrder(updatedList);
     };
 
-    render() {
-        const {
-            addMarker,
-            placemarks,
-            removeMarker,
-            requestErrorCode,
-        } = this.props;
+    const {
+        addMarker,
+        placemarks,
+        removeMarker,
+        requestErrorCode,
+    } = props;
 
-        return (
-            <div className="points">
-                <div className="points__form">
-                    <AddPoint
-                        addMarker={addMarker}
-                        requestErrorCode={requestErrorCode}
-                    />
-                </div>
-                <div className="points__list">
-                    <ReactDragList
-                        dataSource={placemarks}
-                        handles={false}
-                        rowKey="id"
-                        row={(item, index) => (
-                            <div key={item.id} className="point-item">
-                                <span className="point-item__info">
-                                    <strong>{`${index + 1}.`}</strong>
-                                    {' '}
-                                    {`${item.properties.balloonContent}`}
-                                </span>
-                                <span
-                                    className="point-item__delete"
-                                    onClick={() => removeMarker(item.id)}
-                                />
-                            </div>
-                        )}
-                        onUpdate={this.handleUpdate}
-                    />
-                </div>
+    return (
+        <div className="point-panel">
+            <div className="point-panel__form">
+                <AddPoint
+                    addMarker={addMarker}
+                    requestErrorCode={requestErrorCode}
+                />
             </div>
-        );
-    }
+            <div className="point-panel__list">
+                <ReactDragList
+                    dataSource={placemarks}
+                    handles={false}
+                    rowKey="id"
+                    row={(item, index) => (
+                        <div key={item.id} className="point">
+                            <span className="point__info">
+                                <strong>{`${index + 1}.`}</strong>
+                                {` ${item.properties.balloonContent}`}
+                            </span>
+                            <span
+                                className="point__delete"
+                                onClick={() => removeMarker(item.id)}
+                            />
+                        </div>
+                    )}
+                    onUpdate={handleUpdate}
+                />
+            </div>
+        </div>
+    );
 };
 
 Points.propTypes = {
