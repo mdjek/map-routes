@@ -11,8 +11,8 @@ const AddPoint = (props) => {
         changeInputText(text);
     };
 
-    const addMarker = (event) => {
-        const {addMarker} = props;
+    const handleAddMarker = (event) => {
+        const { addMarker } = props;
 
         event.preventDefault();
 
@@ -20,20 +20,19 @@ const AddPoint = (props) => {
             addMarker(inputText);
             changeInputText('');
             setErrorText(null);
-        }
-        else {
+        } else {
             setErrorText('Укажите адрес');
         }
     };
 
-    const {requestErrorCode} = props;
+    const { requestErrorCode } = props;
 
     return (
         <Fragment>
             <form
                 action="#"
                 method="get"
-                onSubmit={addMarker}
+                onSubmit={handleAddMarker}
             >
                 <div className="form-group row">
                     <input
@@ -46,18 +45,22 @@ const AddPoint = (props) => {
                     />
                 </div>
             </form>
-            {errorText && (
-                <div className="error-text">
-                    {errorText}
-                </div>
-            )}
-            {!!requestErrorCode &&
-            (<div className="error-text">
-                {requestErrorCode === 2
-                    ? 'Адрес не найден. Измените запрос.'
-                    : 'Возникла ошибка. Попробуйте позже.'
-                }
-            </div>)
+            { errorText
+                && (
+                    <div className="error-text">
+                        {errorText}
+                    </div>
+                )
+            }
+            { !!requestErrorCode
+                && (
+                    <div className="error-text">
+                        {requestErrorCode === 2
+                            ? 'Адрес не найден. Измените запрос.'
+                            : 'Возникла ошибка. Попробуйте позже.'
+                        }
+                    </div>
+                )
             }
         </Fragment>
     );

@@ -10,4 +10,4 @@ export {
     YaMap,
     Points,
     AddPoint,
-}
+};

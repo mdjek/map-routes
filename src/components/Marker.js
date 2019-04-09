@@ -12,7 +12,7 @@ const Marker = (props) => {
     };
 
     const handleDragEnd = (e) => {
-        const {index, handleChangeCoords } = props;
+        const { index, handleChangeCoords } = props;
         const coords = e.get('target').geometry.getCoordinates();
 
         changeCoords(null);
@@ -33,7 +33,8 @@ const Marker = (props) => {
                 {...props}
             />
             {startDragCoords
-                && (<Placemark
+                && (
+                    <Placemark
                         geometry={{
                             coordinates: startDragCoords,
                         }}
@@ -46,14 +47,14 @@ const Marker = (props) => {
             }
         </Fragment>
     );
-
-}
+};
 
 Marker.propTypes = {
     index: PropTypes.number,
-    coordinates: PropTypes.array,
-    iconContent: PropTypes.number,
-    balloonContent: PropTypes.string,
+    geometry: PropTypes.shape(),
+    properties: PropTypes.shape(),
+    handleChangeCoords: PropTypes.func,
+
 };
 
 export default Marker;

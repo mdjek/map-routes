@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Points, YaMap } from '../../components';
-import * as actions from './actions';
+import * as RouteMapActions from './actions';
 
 const RouteMap = (props) => {
-    const changeCoords = (id, coords) => {
-        const {actions: {changeCoords, getAddressLocation}} = props;
+    const handleChangeCoords = (id, coords) => {
+        const {
+            actions: {
+                changeCoords,
+                getAddressLocation,
+            },
+        } = props;
 
         changeCoords(id, coords);
         getAddressLocation(id, coords, 'latlong');
@@ -36,7 +41,7 @@ const RouteMap = (props) => {
             <YaMap
                 mapState={mapState}
                 placemarks={placemarks}
-                handleChangeCoords={changeCoords}
+                handleChangeCoords={handleChangeCoords}
             />
         </Fragment>
     );
@@ -44,7 +49,7 @@ const RouteMap = (props) => {
 
 RouteMap.propTypes = {
     mapState: PropTypes.shape(),
-    placemarks: PropTypes.array,
+    placemarks: PropTypes.arrayOf(PropTypes.shape()),
     requestErrorCode: PropTypes.number,
     actions: PropTypes.shape({
         changeCoords: PropTypes.func,
@@ -62,7 +67,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch),
+    actions: bindActionCreators(RouteMapActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RouteMap);

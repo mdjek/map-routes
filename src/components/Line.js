@@ -2,7 +2,7 @@ import React from 'react';
 import { GeoObject } from 'react-yandex-maps';
 import PropTypes from 'prop-types';
 
-const Line = ({coordinates}) => (
+const Line = ({ coordinates }) => (
     <GeoObject
         geometry={{
             type: 'LineString',
@@ -17,7 +17,9 @@ const Line = ({coordinates}) => (
 );
 
 Line.propTypes = {
-    coordinates: PropTypes.array,
+    coordinates: PropTypes.arrayOf(
+        PropTypes.arrayOf(PropTypes.number),
+    ),
 };
 
 export default Line;

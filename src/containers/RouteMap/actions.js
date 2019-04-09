@@ -22,16 +22,16 @@ export const geocodeRequest = (data, scoParam) => (
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-        }
+        },
     })
 );
 
-export const changeOrder = (data) => (dispatch) => {
+export const changeOrder = data => dispatch => (
     dispatch({
         type: actionTypes.CHANGE_MARKER_ORDER,
         data,
     })
-};
+);
 
 export const changeCoords = (index, coords) => dispatch => (
     dispatch({
@@ -43,7 +43,7 @@ export const changeCoords = (index, coords) => dispatch => (
     })
 );
 
-export const changeMapCenter = (coords) => dispatch => (
+export const changeMapCenter = coords => dispatch => (
     dispatch({
         type: actionTypes.CHANGE_MAP_CENTER,
         data: coords,
@@ -66,11 +66,11 @@ export const shapeMarker = (coords, address) => (dispatch) => {
     dispatch({
         type: actionTypes.ADD_MARKER,
         data: newPlacemark,
-    })
+    });
 };
 
-export const getInfoLocation = (data) => dispatch => (
-    geocodeRequest(data)
+export const getInfoLocation = requestData => dispatch => (
+    geocodeRequest(requestData)
         .then((response) => {
             const { status, data } = response;
 
@@ -82,7 +82,8 @@ export const getInfoLocation = (data) => dispatch => (
                 data.response.GeoObjectCollection.featureMember
                 && data.response.GeoObjectCollection.featureMember.length > 0
                 && data.response.GeoObjectCollection.featureMember[0].GeoObject.Point
-                && data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData
+                && data.response.GeoObjectCollection.featureMember[0]
+                    .GeoObject.metaDataProperty.GeocoderMetaData
             ) {
                 const responseDataCoords = data.response.GeoObjectCollection.featureMember[0]
                     .GeoObject.Point.pos;
@@ -98,7 +99,7 @@ export const getInfoLocation = (data) => dispatch => (
                     dispatch(changeMapCenter(formattedCoords));
                 }
             } else {
-                dispatch(requestRejected(2))
+                dispatch(requestRejected(2));
             }
         })
         .catch(() => (
@@ -106,8 +107,8 @@ export const getInfoLocation = (data) => dispatch => (
         ))
 );
 
-export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
-    geocodeRequest(data, scoParam)
+export const getAddressLocation = (index, requestData, scoParam = '') => dispatch => (
+    geocodeRequest(requestData, scoParam)
         .then((response) => {
             const { status, data } = response;
 
@@ -124,10 +125,10 @@ export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
                         index,
                         address: data.response.GeoObjectCollection.featureMember[0]
                             .GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted,
-                    }
-                })
+                    },
+                });
             } else {
-                dispatch(requestRejected(2))
+                dispatch(requestRejected(2));
             }
         })
         .catch(() => (
@@ -135,11 +136,11 @@ export const getAddressLocation = (index, data, scoParam = '') => dispatch => (
         ))
 );
 
-export const addMarker = (data) => (dispatch) => {
+export const addMarker = data => (dispatch) => {
     dispatch(getInfoLocation(data));
 };
 
-export const removeMarker = (id) => (dispatch, getState) => {
+export const removeMarker = id => (dispatch, getState) => {
     const { RouteMapReducer: { placemarks } } = getState();
 
     const newList = placemarks.filter(item => item.id !== id);
@@ -147,5 +148,5 @@ export const removeMarker = (id) => (dispatch, getState) => {
     dispatch({
         type: actionTypes.REMOVE_MARKER,
         data: newList,
-    })
+    });
 };

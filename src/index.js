@@ -1,4 +1,4 @@
-import "@babel/polyfill";
+import '@babel/polyfill';
 import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { render } from 'react-dom';
@@ -7,11 +7,9 @@ import thunk from 'redux-thunk';
 import AppReducers from './app/reducers';
 import App from './App';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const store = createStore(
     AppReducers(),
-    composeEnhancers(
+    compose(
         applyMiddleware(thunk),
     ),
 );
@@ -19,5 +17,5 @@ const store = createStore(
 render(
     <Provider store={store}>
         <App />
-    </Provider>, document.getElementById('root')
+    </Provider>, document.getElementById('root'),
 );

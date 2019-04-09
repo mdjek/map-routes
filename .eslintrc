@@ -1,0 +1,17 @@
+{
+    "extends": [
+        "react-app",
+        "eslint-config-smarthead-react"
+    ],
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "globals": {
+        "window": false,
+        "APP_CONFIG": false,
+        "it": false
+    },
+    "rules": {}
+}

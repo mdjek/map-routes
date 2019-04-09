@@ -8,4 +8,4 @@ export {
     RouteMapReducer,
     RouteMapTypes,
     RouteMapActions,
-}
+};

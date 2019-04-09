@@ -5,7 +5,7 @@ import { AddPoint } from '.';
 
 const Points = (props) => {
     const handleUpdate = (e, updatedList) => {
-        const {changeOrder} = props;
+        const { changeOrder } = props;
 
         changeOrder(updatedList);
     };
@@ -26,32 +26,42 @@ const Points = (props) => {
                 />
             </div>
             <div className="point-panel__list">
-                <ReactDragList
-                    dataSource={placemarks}
-                    handles={false}
-                    rowKey="id"
-                    row={(item, index) => (
-                        <div key={item.id} className="point">
-                            <span className="point__info">
-                                <strong>{`${index + 1}.`}</strong>
-                                {` ${item.properties.balloonContent}`}
-                            </span>
-                            <span
-                                className="point__delete"
-                                onClick={() => removeMarker(item.id)}
-                            />
-                        </div>
-                    )}
-                    onUpdate={handleUpdate}
-                />
+                {placemarks && (
+                    <ReactDragList
+                        dataSource={placemarks}
+                        handles={false}
+                        rowKey="id"
+                        row={(item, index) => (
+                            <div key={item.id} className="point">
+                                <span className="point__info">
+                                    <strong>{`${index + 1}.`}</strong>
+                                    {` ${item.properties.balloonContent}`}
+                                </span>
+                                <a
+                                    href="#del"
+                                    className="point__delete"
+                                    onClick={() => removeMarker(item.id)}
+                                >
+                                    <span className="visually-hidden">Удалить</span>
+                                </a>
+                            </div>
+                        )}
+                        onUpdate={handleUpdate}
+                    />
+                )}
             </div>
         </div>
     );
 };
 
+Points.defaultProps = {
+    placemarks: [],
+};
+
 Points.propTypes = {
     addMarker: PropTypes.func,
-    placemarks: PropTypes.array,
+    changeOrder: PropTypes.func,
+    placemarks: PropTypes.arrayOf(PropTypes.shape()),
     removeMarker: PropTypes.func,
     requestErrorCode: PropTypes.number,
 };

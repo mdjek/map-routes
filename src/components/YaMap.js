@@ -27,11 +27,16 @@ const YaMap = (props) => {
                                     handleChangeCoords={handleChangeCoords}
                                     {...placemarkParams}
                                 />
-                                { i !== placemarks.length-1
+                                { i !== placemarks.length - 1
                                 && (
                                     <Line
                                         key={`l${placemarkParams.id}`}
-                                        coordinates={[placemarkParams.geometry.coordinates, placemarks[i+=1].geometry.coordinates]}
+                                        coordinates={
+                                            [
+                                                placemarkParams.geometry.coordinates,
+                                                placemarks[i + 1].geometry.coordinates,
+                                            ]
+                                        }
                                     />
                                 )
                                 }
@@ -44,9 +49,13 @@ const YaMap = (props) => {
     );
 };
 
+YaMap.defaultProps = {
+    placemarks: [],
+};
+
 YaMap.propTypes = {
     mapState: PropTypes.shape(),
-    placemarks: PropTypes.array,
+    placemarks: PropTypes.arrayOf(PropTypes.shape()),
     handleChangeCoords: PropTypes.func,
 };
 
