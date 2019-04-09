@@ -1,7 +1,8 @@
 {
     "extends": [
-        "react-app",
-        "eslint-config-smarthead-react"
+        "eslint-config-airbnb-base",
+        "eslint-config-airbnb",
+        "eslint-config-react-app"
     ],
     "parser": "babel-eslint",
     "env": {
@@ -13,5 +14,16 @@
         "APP_CONFIG": false,
         "it": false
     },
-    "rules": {}
+    "rules": {
+        "indent": ["error", 4],
+        "react/require-default-props": ["off"],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-filename-extension": [
+            "off",
+            {
+                "extensions": [".js", ".jsx"]
+            }
+        ]
+    }
 }
