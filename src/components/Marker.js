@@ -1,61 +1,52 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Placemark } from 'react-yandex-maps';
 import PropTypes from 'prop-types';
 
-class Marker extends Component {
-    state = {
-        startDragCoords: null,
-    };
+const Marker = (props) => {
+    const [startDragCoords, changeCoords] = useState(null);
 
-    handleDragStart = (e) => {
-        const startDragCoords = e.get('target').geometry.getCoordinates();
-
-        this.setState({
-            startDragCoords,
-        });
-    };
-
-    handleDragEnd = (e) => {
-        const {index, handleChangeCoords } = this.props;
+    const handleDragStart = (e) => {
         const coords = e.get('target').geometry.getCoordinates();
 
-        this.setState({
-            startDragCoords: null,
-        });
+        changeCoords(coords);
+    };
 
+    const handleDragEnd = (e) => {
+        const {index, handleChangeCoords } = props;
+        const coords = e.get('target').geometry.getCoordinates();
+
+        changeCoords(null);
         handleChangeCoords(index, coords);
     };
 
-    render() {
-        const { index } = this.props;
-        const { startDragCoords } = this.state;
+    const { index } = props;
 
-        return (
-            <Fragment>
-                <Placemark
-                    onDragStart={this.handleDragStart}
-                    onDragEnd={this.handleDragEnd}
-                    options={{
-                        preset: index === 0 ? 'islands#redDotIcon' : 'islands#darkBlueDotIcon',
-                        draggable: true,
-                    }}
-                    {...this.props}
-                />
-                {startDragCoords
-                    && (<Placemark
-                            geometry={{
-                                coordinates: startDragCoords,
-                            }}
-                            options={{
-                                preset: 'islands#lightBlueDotIcon',
-                                draggable: false,
-                            }}
-                        />
-                    )
-                }
-            </Fragment>
-        );
-    }
+    return (
+        <Fragment>
+            <Placemark
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+                options={{
+                    preset: index === 0 ? 'islands#redDotIcon' : 'islands#darkBlueDotIcon',
+                    draggable: true,
+                }}
+                {...props}
+            />
+            {startDragCoords
+                && (<Placemark
+                        geometry={{
+                            coordinates: startDragCoords,
+                        }}
+                        options={{
+                            preset: 'islands#lightBlueDotIcon',
+                            draggable: false,
+                        }}
+                    />
+                )
+            }
+        </Fragment>
+    );
+
 }
 
 Marker.propTypes = {

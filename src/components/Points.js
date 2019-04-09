@@ -50,6 +50,7 @@ const Points = (props) => {
 };
 
 Points.propTypes = {
+    addMarker: PropTypes.func,
     placemarks: PropTypes.array,
     removeMarker: PropTypes.func,
     requestErrorCode: PropTypes.number,

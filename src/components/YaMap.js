@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { YMaps, Map } from 'react-yandex-maps';
 import { Marker, Line } from '.';
 
-const YaMap = props => {
+const YaMap = (props) => {
     const {
         mapState,
         placemarks,
