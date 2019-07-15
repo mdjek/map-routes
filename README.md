@@ -2,12 +2,15 @@
 
 Построение маршрута на карте посредством добавления/удаления маркеров.
 
-Stack: 
+## Example 
+
+https://mdjek.github.io/map-routes/
+
+## Stack
 * React 
 * Redux
 * Thunk
 
 Для запуска проекта:
-
 ### `npm i`
 ### `npm start`
